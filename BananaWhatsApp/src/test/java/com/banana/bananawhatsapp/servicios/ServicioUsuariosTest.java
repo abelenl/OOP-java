@@ -71,4 +71,5 @@ class ServicioUsuariosTest {
     @Test
     void dadoUnUsuarioNOValido_cuandoObtenerPosiblesDesinatarios_entoncesExcepcion() {
     }
+
 }

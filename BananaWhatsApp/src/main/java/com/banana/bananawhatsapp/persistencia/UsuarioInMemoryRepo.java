@@ -1,5 +1,6 @@
 package com.banana.bananawhatsapp.persistencia;
 
+import com.banana.bananawhatsapp.exceptions.UsuarioException;
 import com.banana.bananawhatsapp.modelos.Usuario;
 import lombok.Setter;
 
@@ -23,12 +24,29 @@ public class UsuarioInMemoryRepo implements IUsuarioRepository {
 
     @Override
     public Usuario actualizar(Usuario usuario) throws SQLException {
-        return null;
+        for (Usuario usr : usuarios) {
+            if (usr.getId() == usuario.getId()) {
+                usuarios.remove(usr);
+                usuarios.add(usuario);
+                return usuario;
+            }
+        }
+
+        throw new UsuarioException();
     }
+
 
     @Override
     public boolean borrar(Usuario usuario) throws SQLException {
-        return false;
+        for (Usuario usr : usuarios) {
+            if (usr.getId() == usuario.getId()) {
+                usuarios.remove(usr);
+                return true;
+            }
+        }
+
+        throw new UsuarioException();
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.banana.bananawhatsapp.controladores;
 
 import com.banana.bananawhatsapp.config.SpringConfig;
 import com.banana.bananawhatsapp.modelos.Usuario;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,11 @@ class ControladorUsuariosTest {
     }
 
     @Test
-    void dadoUsuarioNOValido_cuandoAlta_entoncesExcepcion() {
+    void dadoUsuarioNOValido_cuandoAlta_entoncesExcepcion() throws Exception{
+        Usuario nuevo = new Usuario(null, "F", "f.com", LocalDate.now(), true);
+        Assertions.assertThrows(Exception.class, () ->{
+            controladorUsuarios.alta(nuevo);
+        });
     }
 
     @Test

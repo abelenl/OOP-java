@@ -6,7 +6,7 @@ import com.banana.bananawhatsapp.persistencia.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
+import java.util.Set;
 
 @Service
 public class UsuarioServicioImpl implements IServicioUsuarios {
@@ -16,7 +16,6 @@ public class UsuarioServicioImpl implements IServicioUsuarios {
 
     @Override
     public Usuario crearUsuario(Usuario usuario) throws UsuarioException {
-
         try {
             usuario.valido();
             usuarioRepo.crear(usuario);
@@ -30,16 +29,32 @@ public class UsuarioServicioImpl implements IServicioUsuarios {
 
     @Override
     public boolean borrarUsuario(Usuario usuario) throws UsuarioException {
-        return false;
+        try {
+            usuario.valido();
+            usuarioRepo.borrar(usuario);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UsuarioException("Error en el borrado: " + e.getMessage());
+        }
+
+    return true;
     }
 
     @Override
     public Usuario actualizarUsuario(Usuario usuario) throws UsuarioException {
-        return null;
+        try {
+            usuario.valido();
+            usuarioRepo.actualizar(usuario);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UsuarioException("Error en la actualización: " + e.getMessage());
+        }
+
+        return usuario;
     }
 
     @Override
-    public Usuario obtenerPosiblesDesinatarios(Usuario usuario, int max) throws UsuarioException {
+    public Set<Usuario> obtenerPosiblesDestinatarios(Usuario usuario, int max) throws UsuarioException {
         return null;
     }
 }

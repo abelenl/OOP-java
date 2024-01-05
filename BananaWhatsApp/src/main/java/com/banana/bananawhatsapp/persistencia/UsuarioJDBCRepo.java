@@ -22,7 +22,7 @@ public class UsuarioJDBCRepo implements IUsuarioRepository {
 
         try (
                 Connection conn = DriverManager.getConnection(db_url);
-                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ) {
             usuario.valido();
 
@@ -51,12 +51,50 @@ public class UsuarioJDBCRepo implements IUsuarioRepository {
 
     @Override
     public Usuario actualizar(Usuario usuario) throws SQLException {
-        return null;
-    }
+        String sql = "UPDATE usuario set activo=?, nombre=?, email=? WHERE id=?";
+        try (
+                Connection conn = DriverManager.getConnection(db_url);
+                PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            usuario.valido();
+
+            stmt.setBoolean(1, usuario.isActivo());
+            stmt.setString(2, usuario.getNombre());
+            stmt.setString(3, usuario.getEmail());
+            stmt.setInt(4, usuario.getId());
+
+            int rows = stmt.executeUpdate();
+
+        } catch (UsuarioException e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return usuario;
+}
 
     @Override
     public boolean borrar(Usuario usuario) throws SQLException {
-        return false;
+        String sql = "DELETE FROM usuario WHERE id=?";
+
+        try (
+                Connection conn = DriverManager.getConnection(db_url);
+                PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            stmt.setInt(1, usuario.getId());
+
+            int rows = stmt.executeUpdate();
+            System.out.println(rows);
+
+            if(rows<=0){
+                throw new UsuarioException();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
+        return true;
     }
 
     @Override
