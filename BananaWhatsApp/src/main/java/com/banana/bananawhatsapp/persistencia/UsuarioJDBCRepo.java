@@ -4,10 +4,7 @@ import com.banana.bananawhatsapp.exceptions.UsuarioException;
 import com.banana.bananawhatsapp.modelos.Usuario;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-import java.lang.annotation.Repeatable;
 import java.sql.*;
 import java.util.Set;
 
@@ -22,7 +19,7 @@ public class UsuarioJDBCRepo implements IUsuarioRepository {
 
         try (
                 Connection conn = DriverManager.getConnection(db_url);
-                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
             usuario.valido();
 
@@ -54,7 +51,7 @@ public class UsuarioJDBCRepo implements IUsuarioRepository {
         String sql = "UPDATE usuario set activo=?, nombre=?, email=? WHERE id=?";
         try (
                 Connection conn = DriverManager.getConnection(db_url);
-                PreparedStatement stmt = conn.prepareStatement(sql);
+                PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
             usuario.valido();
 
@@ -78,7 +75,7 @@ public class UsuarioJDBCRepo implements IUsuarioRepository {
 
         try (
                 Connection conn = DriverManager.getConnection(db_url);
-                PreparedStatement stmt = conn.prepareStatement(sql);
+                PreparedStatement stmt = conn.prepareStatement(sql)
         ) {
             stmt.setInt(1, usuario.getId());
 
