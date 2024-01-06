@@ -5,13 +5,30 @@ import com.banana.bananawhatsapp.modelos.Usuario;
 import lombok.Setter;
 
 import java.sql.SQLException;
-import java.util.HashSet;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public class UsuarioInMemoryRepo implements IUsuarioRepository {
-
-    Set<Usuario> usuarios = new HashSet<>();
+    //private static Logger logger = Logger.getLogger("UsuarioInMemoryRepo");
+    private static List<Usuario> usuarios;
     private Integer num = 0;
+
+    public UsuarioInMemoryRepo() {
+        usuarios = new ArrayList<>();
+
+        usuarios.add(new Usuario(1, "Juana", "juana@e.com", LocalDate.now(), true));
+        usuarios.add(new Usuario(2, "Luisa", "luisa@e.com", LocalDate.now(), true));
+        usuarios.add(new Usuario(3, "Diana", "diana@e.com", LocalDate.now(), true));
+        usuarios.add(new Usuario(4, "Pedro", "pedro@e.com", LocalDate.now(), true));
+        usuarios.add(new Usuario(5, "Marco", "marco@e.com", LocalDate.now(), true));
+        usuarios.add(new Usuario(6, "Ricardo", "ricardo@e.com", LocalDate.now(), true));
+        usuarios.add(new Usuario(7, "Nora", "nora@e.com", LocalDate.now(), true));
+        usuarios.add(new Usuario(8, "Edwin", "edwin@e.com", LocalDate.now(), true));
+        usuarios.add(new Usuario(9, "Marta", "marta@e.com", LocalDate.now(), true));
+        usuarios.add(new Usuario(10, "Eduardo", "eduardo@e.com", LocalDate.now(), true));
+    }
 
     @Override
     public Usuario seleccionar(Integer id) throws SQLException {

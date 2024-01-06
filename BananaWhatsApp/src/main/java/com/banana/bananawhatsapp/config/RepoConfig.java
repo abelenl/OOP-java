@@ -17,17 +17,17 @@ public class RepoConfig {
     String connUrl;
 
     @Bean
-    //@Profile("prod")
+    @Profile("default")
     IUsuarioRepository crearUsuarioRepoJDBC(){
         UsuarioJDBCRepo repo = new UsuarioJDBCRepo();
         repo.setDb_url(connUrl);
         return repo;
     }
 
-    //@Bean
-    //@Profile("dev")
-    //IUsuarioRepository crearUsuarioRepoInMemo(){
-    //    UsuarioInMemoryRepo repo = new UsuarioInMemoryRepo();
-    //    return repo;
-    //}
+    @Bean
+    @Profile("dev")
+    IUsuarioRepository crearUsuarioRepoInMemo(){
+        UsuarioInMemoryRepo repo = new UsuarioInMemoryRepo();
+        return repo;
+    }
 }

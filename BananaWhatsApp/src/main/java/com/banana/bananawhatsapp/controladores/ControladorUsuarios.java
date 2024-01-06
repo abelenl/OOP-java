@@ -11,6 +11,17 @@ public class ControladorUsuarios {
 
     private IServicioUsuarios servicioUsuarios;
 
+        public Usuario selec(Integer id) {
+        try {
+            Usuario usuario = servicioUsuarios.seleccionarUsuario((id));
+            System.out.println("Usuario creado: " + usuario);
+            return usuario;
+        } catch (Exception e) {
+            System.out.println("Ha habido un error: " + e.getMessage());
+            throw e;
+        }
+
+    }
     public Usuario alta(Usuario nuevo) {
         try {
             Usuario usuario = servicioUsuarios.crearUsuario(nuevo);

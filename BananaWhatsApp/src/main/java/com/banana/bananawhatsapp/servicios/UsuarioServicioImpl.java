@@ -15,6 +15,16 @@ public class UsuarioServicioImpl implements IServicioUsuarios {
     IUsuarioRepository usuarioRepo;
 
     @Override
+    public Usuario seleccionarUsuario(Integer id) throws UsuarioException {
+        try {
+            return usuarioRepo.seleccionar(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UsuarioException("Error en la selección: " + e.getMessage());
+        }
+    }
+
+    @Override
     public Usuario crearUsuario(Usuario usuario) throws UsuarioException {
         try {
             usuario.valido();

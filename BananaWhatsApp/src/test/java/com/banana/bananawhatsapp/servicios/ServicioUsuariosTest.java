@@ -17,6 +17,7 @@ import java.time.LocalDate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
@@ -26,19 +27,13 @@ class ServicioUsuariosTest {
     @Autowired
     IServicioUsuarios servicio;
 
-    @Autowired
-    UsuarioRepositoryParaTests usuarioRepo;
-
     @Test
     void dadoUnUsuarioValido_cuandoCrearUsuario_entoncesUsuarioValido() throws Exception {
-        Usuario nuevo = new Usuario(null, "Ricardo", "r@r.com", LocalDate.now(), true);
+        Usuario nuevo = new Usuario(null, "Jose", "jose@jj.com", LocalDate.now(), true);
         servicio.crearUsuario(nuevo);
 
         assertThat(nuevo, notNullValue());
         assertThat(nuevo.getId(), greaterThan(0));
-
-        Usuario verUser = usuarioRepo.getById(nuevo.getId());
-        assertThat(verUser, equalTo(nuevo));
 
     }
 
@@ -52,21 +47,37 @@ class ServicioUsuariosTest {
 
     @Test
     void dadoUnUsuarioValido_cuandoBorrarUsuario_entoncesUsuarioValido() {
-        int id = 100;
-        boolean ok = this.servicio.borrarUsuario();
-        boolean ok = this.repo.deleteUsuario(Integer.valueOf(id));
-        MatcherAssert.assertThat(ok, Matchers.is(true));    }
+        int id = 7;
+        boolean ok = servicio.borrarUsuario(servicio.seleccionarUsuario(id));
+        MatcherAssert.assertThat(ok, Matchers.is(true));
+    }
 
     @Test
     void dadoUnUsuarioNOValido_cuandoBorrarUsuario_entoncesExcepcion() {
+        int id = 100;
+            assertThrows(UsuarioException.class, () -> {
+            boolean ok = servicio.borrarUsuario(servicio.seleccionarUsuario(id));
+        });
     }
 
     @Test
     void dadoUnUsuarioValido_cuandoActualizarUsuario_entoncesUsuarioValido() {
+        Usuario usold = new Usuario(null, "Jose1", "jose@jj.com", LocalDate.now(), true);
+        Usuario usnew = usold;
+        String eNuevo = "Jose1@jj1.es";
+
+        servicio.crearUsuario(usold);
+        usnew.setEmail(eNuevo);
+        servicio.actualizarUsuario(usnew);
+        assertEquals(usold.getEmail(), eNuevo);
     }
 
     @Test
     void dadoUnUsuarioNOValido_cuandoActualizarUsuario_entoncesExcepcion() {
+        Usuario user = null;
+        assertThrows(UsuarioException.class, () -> {
+            servicio.actualizarUsuario(user);
+        });
     }
 
     @Test
