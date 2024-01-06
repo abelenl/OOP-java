@@ -3,9 +3,12 @@ package com.banana.bananawhatsapp.controladores;
 import com.banana.bananawhatsapp.modelos.Mensaje;
 import com.banana.bananawhatsapp.modelos.Usuario;
 import com.banana.bananawhatsapp.servicios.IServicioMensajeria;
+import lombok.*;
 
 import java.util.List;
 
+@Setter
+@Getter
 public class ControladorMensajes {
     private IServicioMensajeria servicioMensajeria;
 

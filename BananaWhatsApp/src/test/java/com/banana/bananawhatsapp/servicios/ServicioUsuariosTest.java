@@ -47,7 +47,7 @@ class ServicioUsuariosTest {
 
     @Test
     void dadoUnUsuarioValido_cuandoBorrarUsuario_entoncesUsuarioValido() {
-        int id = 7;
+        int id = 18;
         boolean ok = servicio.borrarUsuario(servicio.seleccionarUsuario(id));
         MatcherAssert.assertThat(ok, Matchers.is(true));
     }

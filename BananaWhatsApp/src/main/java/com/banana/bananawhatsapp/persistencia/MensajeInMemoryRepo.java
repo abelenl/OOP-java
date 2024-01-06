@@ -2,17 +2,32 @@ package com.banana.bananawhatsapp.persistencia;
 
 import com.banana.bananawhatsapp.modelos.Mensaje;
 import com.banana.bananawhatsapp.modelos.Usuario;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-public class MensajeriaInMemoryRepo implements IMensajeRepository{
-    Set<Mensaje> mensajes = new HashSet<>();
+@Getter
+@Setter
+public class MensajeInMemoryRepo implements IMensajeRepository{
+    private static List<Mensaje> mensajes;
+
+    private Usuario us1 = new Usuario(1, "Juana", "juana@e.com", LocalDate.now(), true);
+    private Usuario us2 = new Usuario(2, "Luisa", "luisa@e.com", LocalDate.now(), true);
+
     private Integer num = 0;
     private Integer nro = 0;
+
+    public MensajeInMemoryRepo() {
+        mensajes = new ArrayList<>();
+        mensajes.add(new Mensaje(1, us1, us2, "Hola, qué tal?", LocalDate.now()));
+        mensajes.add(new Mensaje(2, us2, us1, "Muy bien! y tu?", LocalDate.now()));
+        mensajes.add(new Mensaje(3, us1, us2, "Bien también...", LocalDate.now()));
+        mensajes.add(new Mensaje(4, us2, us1, "Chachi!", LocalDate.now()));
+    }
 
     @Override
     public Mensaje crear(Mensaje mensaje) throws SQLException {

@@ -2,6 +2,7 @@ package com.banana.bananawhatsapp.persistencia;
 
 import com.banana.bananawhatsapp.exceptions.UsuarioException;
 import com.banana.bananawhatsapp.modelos.Usuario;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.SQLException;
@@ -10,9 +11,11 @@ import java.util.*;
 import java.util.Set;
 import java.util.logging.Logger;
 
+@Getter
+@Setter
 public class UsuarioInMemoryRepo implements IUsuarioRepository {
-    //private static Logger logger = Logger.getLogger("UsuarioInMemoryRepo");
     private static List<Usuario> usuarios;
+
     private Integer num = 0;
 
     public UsuarioInMemoryRepo() {

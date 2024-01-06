@@ -65,7 +65,7 @@ class ControladorUsuariosTest {
 
     @Test
     void dadoUsuarioValido_cuandoBaja_entoncesUsuarioValido() {
-        int id = 16;
+        int id = 19;
         boolean ok = controladorUsuarios.baja(controladorUsuarios.selec(id));
         MatcherAssert.assertThat(ok, Matchers.is(true));
     }

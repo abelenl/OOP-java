@@ -11,7 +11,7 @@ import lombok.*;
 
 @Setter
 @Getter
-public class MensajeriaJDBCRepo implements IMensajeRepository{
+public class MensajeJDBCRepo implements IMensajeRepository{
     private String db_url;
     @Override
     public Mensaje crear(Mensaje mensaje) throws SQLException {
@@ -70,7 +70,7 @@ public class MensajeriaJDBCRepo implements IMensajeRepository{
 
     @Override
     public boolean borrarTodos(Usuario rem, Usuario dest) throws SQLException {
-        String sql = "DELETE FROM mensaje msj WHERE msj.from_user=? AND msj.to_user=?";
+        String sql = "DELETE FROM mensaje m WHERE m.from_user=? AND m.to_user=?";
         try (
                 Connection conn = DriverManager.getConnection(db_url);
                 PreparedStatement stmt = conn.prepareStatement(sql);
