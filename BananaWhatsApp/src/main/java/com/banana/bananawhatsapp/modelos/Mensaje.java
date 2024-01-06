@@ -12,11 +12,8 @@ import java.time.LocalDate;
 @ToString
 public class Mensaje {
     private Integer id;
-
     private Usuario remitente;
-
     private Usuario destinatario;
-
     private String cuerpo;
     private LocalDate fecha;
 

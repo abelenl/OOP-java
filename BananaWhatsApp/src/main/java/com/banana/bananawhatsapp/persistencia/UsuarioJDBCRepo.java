@@ -14,6 +14,32 @@ public class UsuarioJDBCRepo implements IUsuarioRepository {
     private String db_url;
 
     @Override
+    public Usuario seleccionar(Integer id) throws SQLException {
+        Usuario user = null;
+        String sql = "SELECT * FROM usuario WHERE id = " + id;
+
+        try (
+                Connection conn = DriverManager.getConnection(db_url);
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                user = new Usuario(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("email"),
+                        rs.getDate("alta").toLocalDate(),
+                        rs.getBoolean("activo")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException(e);
+        }
+        return user;
+    }
+    @Override
     public Usuario crear(Usuario usuario) throws SQLException {
         String sql = "INSERT INTO usuario values (NULL,?,?,?,?)";
 

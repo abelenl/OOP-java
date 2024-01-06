@@ -14,6 +14,16 @@ public class UsuarioInMemoryRepo implements IUsuarioRepository {
     private Integer num = 0;
 
     @Override
+    public Usuario seleccionar(Integer id) throws SQLException {
+        for (Usuario usr : usuarios) {
+            if (usr.getId() == id) {
+                return usr;
+            }
+        }
+        throw new UsuarioException();
+    }
+
+    @Override
     public Usuario crear(Usuario usuario) throws SQLException {
         usuario.valido();
         usuario.setId(num + 1);
@@ -53,4 +63,6 @@ public class UsuarioInMemoryRepo implements IUsuarioRepository {
     public Set<Usuario> obtenerPosiblesDestinatarios(Integer id, Integer max) throws SQLException {
         return null;
     }
+
+
 }

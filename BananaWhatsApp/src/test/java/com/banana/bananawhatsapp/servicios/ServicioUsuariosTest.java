@@ -5,6 +5,8 @@ import com.banana.bananawhatsapp.exceptions.UsuarioException;
 import com.banana.bananawhatsapp.modelos.Usuario;
 import com.banana.bananawhatsapp.persistencia.IUsuarioRepository;
 import com.banana.bananawhatsapp.persistencia.UsuarioRepositoryParaTests;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +52,10 @@ class ServicioUsuariosTest {
 
     @Test
     void dadoUnUsuarioValido_cuandoBorrarUsuario_entoncesUsuarioValido() {
-    }
+        int id = 100;
+        boolean ok = this.servicio.borrarUsuario();
+        boolean ok = this.repo.deleteUsuario(Integer.valueOf(id));
+        MatcherAssert.assertThat(ok, Matchers.is(true));    }
 
     @Test
     void dadoUnUsuarioNOValido_cuandoBorrarUsuario_entoncesExcepcion() {
