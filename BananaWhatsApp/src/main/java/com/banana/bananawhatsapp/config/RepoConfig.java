@@ -15,7 +15,7 @@ public class RepoConfig {
     String connUrl;
 
     @Bean
-    @Profile("default")
+    @Profile("prod")
     IUsuarioRepository crearUsuarioRepoJDBC(){
         UsuarioJDBCRepo repo = new UsuarioJDBCRepo();
         repo.setDb_url(connUrl);
@@ -30,7 +30,7 @@ public class RepoConfig {
     }
 
     @Bean
-    @Profile("default")
+    @Profile("prod")
     IMensajeRepository crearMensajeRepoJDBC(){
         MensajeJDBCRepo reposms = new MensajeJDBCRepo();
         reposms.setDb_url(connUrl);
